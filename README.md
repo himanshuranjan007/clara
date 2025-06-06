@@ -1,2 +1,2 @@
-## clara
-# Your Everyday Email , just 10x smarter
+# clara
+## Your Everyday Email , just 10x smarter
