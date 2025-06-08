@@ -1,5 +1,15 @@
-// import { Button } from "@/components/ui/button";
+"use client";
+import { AurinkoLoginButton } from "~/components/aurinkoLoginButton";
+
+
 
 export default function Home() {
-  return <div>Hello World</div>;
+
+  
+  
+  return (
+  <div>
+    <AurinkoLoginButton />
+  </div>
+  );
 }
