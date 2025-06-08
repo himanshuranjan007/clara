@@ -1,12 +1,16 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { Button } from "./ui/button";
+import { getAurinkoAuthUrl } from "~/lib/aurinko";
 
 export const AurinkoLoginButton = () => {
-    const handleClick = async () => {
-        const response = await fetch('/api/aurinko/url');
-        const data = await response.json();
-        window.location.href = data.url;
-    }
-    return <Button onClick={handleClick}>Login with Aurinko</Button>;
+    const router = useRouter();
+    return (
+        <Button onClick={async()=>{ 
+            const url = await getAurinkoAuthUrl('Google');
+            router.push(url);
+            // console.log("url is ",url);
+         }}>Link Gmail Account</Button>
+    )
 }

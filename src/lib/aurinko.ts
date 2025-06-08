@@ -9,7 +9,7 @@ export const getAurinkoAuthUrl = async ( serviceType: 'Google'|'Office365') => {
     if(!userId) throw new Error("UnAuthorised Login");
 
     const params = new URLSearchParams({
-        clientId:process.env.AURINKO_CLIENT_ID || '',
+        clientId:process.env.AURINKO_CLIENT_ID!,
         serviceType,
         scope:'Mail.Read Mail.Send Mail.ReadWrite Mail.Drafts Mail.All',
         responseType:'code',
