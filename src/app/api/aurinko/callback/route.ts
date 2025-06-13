@@ -1,5 +1,8 @@
-import { auth } from "@clerk/nextjs/server";
-// import { redirect } from "next/navigation";
+    import { auth } from "@clerk/nextjs/server";
+import axios from "axios";
+// import { redirect } from "next/navigation";\\\
+
+import { waitUntil} from "@vercel/functions";
 import { NextRequest, NextResponse } from "next/server";
 import { exchangeCodeForAccessToken, getAccountDetails, mailSync } from "~/lib/aurinko";
 import { db } from "~/server/db";
@@ -51,7 +54,20 @@ export const GET = async (req: NextRequest) => {
         }
     })
 
-    await mailSync(token.accessToken);
+    // await mailSync(token.accessToken);
+    // trigger initial sync first 
+    waitUntil(
+        axios.post (process.env.NEXT_PUBLIC_API_URL + "/api/initial-sync",{
+ accountId:token.accountId.toString(),
+ userId:userId
+        }).then((res)=>{ 
+            console.log("initial-sync triggered")
+        }).catch((err)=>{
+            console.error("error triggering initial-sync", err)
+        })
+    )
+
+    
     
     return NextResponse.redirect(new URL("/mail", req.url));
 
